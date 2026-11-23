@@ -1,0 +1,23 @@
+# OFFLINE PIPELINE TEST - synthetic data, scikit-learn classifiers only, tiny training runs.
+# Purpose: check that every stage runs end to end on any machine in a few minutes.
+# Never report these numbers.
+project: smoke
+paths: {data_dir: data/smoke, results_dir: results/smoke}
+datasets:
+  source: synthetic
+  synthetic: {n: 14, seed: 0}
+split:
+  meta_fractions: {train: 0.6, val: 0.2, test: 0.2}
+  seeds: [0, 1]
+classifiers: [logreg, lda, gnb, knn, svm, dtree, rf, extratrees, hgb, mlp_sklearn]
+perfdb: {n_jobs: 2, timeout_s: 60}
+meta: {use_pymfe: false}
+agents:
+  seeds: [0]
+  dqn: {train_steps: 4000, warmup: 500, eval_every: 2000, target_update: 500, buffer_size: 10000}
+  qlearning: {episodes: 20000, eval_every: 5000}
+eval: {random_repeats: 3}
+ablations:
+  full: {}
+  no_dataset_features: {flags: {features: false}}
+  one_shot: {flags: {obs: false}}

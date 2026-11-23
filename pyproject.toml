@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoclassify"
+version = "1.0.0"
+description = "A meta-learning framework with a reinforcement-learning policy for budget-aware algorithm selection in classification"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "scikit-learn>=1.3", "pyyaml>=6.0", "matplotlib>=3.7", "joblib>=1.3"]
+
+[project.optional-dependencies]
+full = ["gymnasium>=0.29", "lightgbm>=4.0", "catboost>=1.2", "pytabkit", "tabpfn", "pymfe>=0.4.3", "openml>=0.14"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+autoclassify = "autoclassify.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["autoclassify*"]

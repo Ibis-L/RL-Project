@@ -1,0 +1,19 @@
+# STAGE 3 - final experiments: OpenML-CC18 (after filters) + extra catalogue datasets, ~120 total.
+# Freeze this file (git tag) before building the database. Meta-test is evaluated ONCE.
+# Hyperparameters below must be copied from what Stage 2 selected on meta-val.
+project: final
+paths: {data_dir: data/final, results_dir: results/final}
+datasets:
+  source: openml
+  suite: OpenML-CC18
+  n_extra: 60          # review data/final/candidates.csv; add bad ones to exclude_ids and re-run fetch
+  extra_seed: 0
+  exclude_ids: []
+split:
+  meta_fractions: {train: 0.7, val: 0.1, test: 0.2}
+  seeds: [0, 1, 2]
+perfdb: {n_jobs: 4, timeout_s: 300}
+agents:
+  seeds: [0, 1, 2, 3, 4]
+  dqn: {train_steps: 150000, eval_every: 10000}
+  qlearning: {episodes: 80000, eval_every: 10000}

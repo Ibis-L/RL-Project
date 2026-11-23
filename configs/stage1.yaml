@@ -1,0 +1,18 @@
+# STAGE 1 - prototype on 5 real OpenML-CC18 datasets (small, mixed types, binary + multiclass).
+# Goal: every stage runs on real data; measure fit times to plan Stage 3. No conclusions.
+#   31 credit-g (categorical)   37 diabetes   54 vehicle (4 classes)
+#   1464 blood-transfusion      1494 qsar-biodeg
+project: stage1
+paths: {data_dir: data/stage1, results_dir: results/stage1}
+datasets:
+  source: openml
+  ids: [31, 37, 54, 1464, 1494]
+split:
+  meta_fractions: {train: 0.6, val: 0.2, test: 0.2}   # 3 / 1 / 1 datasets
+  seeds: [0]
+perfdb: {n_jobs: 4, timeout_s: 300, tabpfn_device: auto}
+agents:
+  seeds: [0]
+  dqn: {train_steps: 20000, eval_every: 5000}
+  qlearning: {episodes: 10000, eval_every: 2500}
+eval: {random_repeats: 5}

@@ -1,0 +1,18 @@
+# STAGE 2 - debugging and tuning on 25 datasets: the 5 from Stage 1 + a reproducible random
+# sample of OpenML-CC18. Tune agent hyperparameters and lambda on meta-val ONLY.
+project: stage2
+paths: {data_dir: data/stage2, results_dir: results/stage2}
+datasets:
+  source: openml
+  ids: [31, 37, 54, 1464, 1494]
+  suite: OpenML-CC18
+  max_datasets: 25
+  sample_seed: 0
+split:
+  meta_fractions: {train: 0.6, val: 0.2, test: 0.2}   # 15 / 5 / 5
+  seeds: [0, 1, 2]
+perfdb: {n_jobs: 4, timeout_s: 300}
+agents:
+  seeds: [0, 1, 2]
+  dqn: {train_steps: 60000, eval_every: 5000}
+  qlearning: {episodes: 30000, eval_every: 5000}

@@ -1,0 +1,14 @@
+*.zip
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+# generated data and results (large); keep the frozen split files under version control:
+data/*/raw/
+data/*/splits/
+data/openml_cache/
+results/
+!data/*/dataset_split.json
+!data/*/metadata.csv
